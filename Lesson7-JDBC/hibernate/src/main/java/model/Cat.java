@@ -49,6 +49,11 @@ public class Cat {
     }
     public void setGender(Boolean gender) {
         this.gender = gender;
+    }
+    @Override
+    public String toString() {
+        return "Cat [id=" + id + ", name=" + name + ", dob=" + dob + ", gender=" + gender + "]";
     };
+
     
 }
