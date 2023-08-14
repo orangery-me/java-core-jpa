@@ -3,8 +3,6 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.Query;
-
 import org.hibernate.Session;
 
 import model.Cat;
@@ -55,21 +53,42 @@ public class CatDAO implements DAOInterface<Cat> {
     }
 
     @Override
-    public boolean insert() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+    public boolean insert_update(Cat t) {
+        try {
+            Session session = HibernateUtil.getSessionfactory().openSession();
+            org.hibernate.Transaction transaction= session.beginTransaction();
+
+            // Cau lenh HQL
+            session.saveOrUpdate(t);
+
+            transaction.commit();
+            session.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public boolean update() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
+    public boolean delete(Cat t) {
+        try {
+            Session session = HibernateUtil.getSessionfactory().openSession();
+            org.hibernate.Transaction transaction= session.beginTransaction();
 
-    @Override
-    public boolean delete() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+            // Cau lenh HQL
+            session.delete(t);
+
+            transaction.commit();
+            session.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
     
 }
